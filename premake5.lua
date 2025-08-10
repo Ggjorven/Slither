@@ -1,20 +1,4 @@
 ------------------------------------------------------------------------------
--- Utilities
-------------------------------------------------------------------------------
-local function GetIOResult(cmd)
-	local handle = io.popen(cmd) -- Open a console and execute the command.
-	local output = handle:read("*a") -- Read the output.
-	handle:close() -- Close the handle.
-
-	return output:match("^%s*(.-)%s*$") -- Trim any trailing whitespace (such as newlines)
-end
-
-function local_require(path)
-    return dofile(path)
-end
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
 -- Bug fixes
 ------------------------------------------------------------------------------
 -- Visual Studio: Bugfix for C++ Modules (same module file name per project)
@@ -58,6 +42,7 @@ workspace "Slither"
 	}
 
 group "Dependencies"
+	include "vendor/NanoNetworking/NanoNetworking/premake5-external"
 group ""
 
 include "Slither"

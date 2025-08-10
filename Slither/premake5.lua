@@ -34,7 +34,9 @@ project "Slither"
 	{
 		"src",
 	}
+
 	includedirs(Dependencies.Combined.IncludeDirs)
+	links(Dependencies.NanoNetworking.LibName)
 
 	filter "system:windows"
 		defines "SL_PLATFORM_DESKTOP"
@@ -53,6 +55,8 @@ project "Slither"
 		defines "SL_PLATFORM_UNIX"
 		systemversion "latest"
 		staticruntime "on"
+
+		-- TODO: Proper linking in order
 
     filter "system:macosx"
 		defines "SL_PLATFORM_DESKTOP"

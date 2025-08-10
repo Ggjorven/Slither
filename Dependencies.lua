@@ -1,11 +1,25 @@
 ------------------------------------------------------------------------------
+-- Utils
+------------------------------------------------------------------------------
+function local_require(path)
+	return dofile(path)
+end
+
+function this_directory()
+    local str = debug.getinfo(2, "S").source:sub(2)
+	local path = str:match("(.*/)")
+    return path:gsub("\\", "/") -- Replace \\ with /
+end
+------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------
 -- Dependencies
 ------------------------------------------------------------------------------
 local Dependencies =
 {
 	Nano = 
 	{
-		IncludeDir = "%{wks.location}/vendor/Nano/Nano/Nano/include"
+		IncludeDir = this_directory() .. "/vendor/Nano/Nano/Nano/include"
 	},
 	NanoNetworking = 
     {
