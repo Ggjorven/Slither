@@ -8,6 +8,10 @@ local function GetIOResult(cmd)
 
 	return output:match("^%s*(.-)%s*$") -- Trim any trailing whitespace (such as newlines)
 end
+
+function local_require(path)
+    return dofile(path)
+end
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------
@@ -31,16 +35,6 @@ premake.override(premake.vstudio.vc2010.elements, "clCompile", function(base, pr
     return calls
 end)
 ------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
--- Dependencies
-------------------------------------------------------------------------------
-MacOSVersion = "14.5"
-
-Dependencies =
-{
-	
-}
 
 ------------------------------------------------------------------------------
 -- Solution

@@ -1,4 +1,5 @@
-MacOSVersion = MacOSVersion or "14.5"
+local Dependencies = local_require("../Dependencies.lua")
+local MacOSVersion = MacOSVersion or "14.5"
 
 project "Slither"
 	kind "ConsoleApp"
@@ -33,6 +34,7 @@ project "Slither"
 	{
 		"src",
 	}
+	includedirs(Dependencies.Combined.IncludeDirs)
 
 	filter "system:windows"
 		defines "SL_PLATFORM_DESKTOP"
