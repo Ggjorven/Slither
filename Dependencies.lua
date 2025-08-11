@@ -23,13 +23,22 @@ local Dependencies =
 	},
 	NanoNetworking = 
     {
-        IncludeDirs = {},
+        IncludeDir = {},
         LibName = "NanoNetworking"
+    },
+    NanoGraphics = 
+    {
+        IncludeDir = {},
+        LibName = "Graphics"
     },
 }
 
-Dependencies.NanoNetworking.IncludeDirs = local_require("vendor/NanoNetworking/NanoNetworking/Dependencies.lua").Combined.IncludeDirs
-table.insert(Dependencies.NanoNetworking.IncludeDirs, this_directory() .. "/vendor/NanoNetworking/NanoNetworking/NanoNetworking/src")
+-- TODO: Replace IncludeDirs with IncludeDir when updating NanoNetworking
+Dependencies.NanoNetworking.IncludeDir = local_require("vendor/NanoNetworking/NanoNetworking/Dependencies.lua").Combined.IncludeDirs
+table.insert(Dependencies.NanoNetworking.IncludeDir, this_directory() .. "/vendor/NanoNetworking/NanoNetworking/NanoNetworking/src")
+
+Dependencies.NanoGraphics.IncludeDir = local_require("vendor/NanoGraphics/NanoGraphics/Dependencies.lua").Combined.IncludeDir
+table.insert(Dependencies.NanoGraphics.IncludeDir, this_directory() .. "/vendor/NanoGraphics/NanoGraphics/Graphics/src")
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------
@@ -37,35 +46,26 @@ table.insert(Dependencies.NanoNetworking.IncludeDirs, this_directory() .. "/vend
 ------------------------------------------------------------------------------
 Dependencies.Combined =
 {
-    IncludeDirs = {},
-    LibNames = {},
-    LibDirs = {}
+    IncludeDir = {},
+    LibName = {},
+    LibDir = {}
 }
 
 for name, dep in pairs(Dependencies) do
     if name ~= "Combined" then
         -- IncludeDirs
         if dep.IncludeDir then
-            table.insert(Dependencies.Combined.IncludeDirs, dep.IncludeDir)
+            table.insert(Dependencies.Combined.IncludeDir, dep.IncludeDir)
         end
-        if dep.IncludeDirs then
-            table.insert(Dependencies.Combined.IncludeDirs, dep.IncludeDirs)
-        end
-        
+
         -- LibNames
         if dep.LibName then
-            table.insert(Dependencies.Combined.LibNames, dep.LibName)
-        end
-        if dep.LibNames then
-            table.insert(Dependencies.Combined.LibNames, dep.LibNames)
+            table.insert(Dependencies.Combined.LibName, dep.LibName)
         end
 
         -- LibDirs
         if dep.LibDir then
-            table.insert(Dependencies.Combined.LibDirs, dep.LibDir)
-        end
-        if dep.LibDirs then
-            table.insert(Dependencies.Combined.LibDirs, dep.LibDirs)
+            table.insert(Dependencies.Combined.LibDir, dep.LibDir)
         end
     end
 end

@@ -1,5 +1,6 @@
 local Dependencies = local_require("../Dependencies.lua")
 local MacOSVersion = MacOSVersion or "14.5"
+local OutputDir = OutputDir or "%{cfg.buildcfg}-%{cfg.system}"
 
 project "Slither"
 	kind "ConsoleApp"
@@ -13,8 +14,8 @@ project "Slither"
 
 	warnings "Extra"
 
-	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
+	targetdir ("%{wks.location}/bin/" .. OutputDir .. "/%{prj.name}")
+	objdir ("%{wks.location}/bin-int/" .. OutputDir .. "/%{prj.name}")
 
 	files
 	{
@@ -35,8 +36,11 @@ project "Slither"
 		"src",
 	}
 
-	includedirs(Dependencies.Combined.IncludeDirs)
+	includedirs(Dependencies.NanoNetworking.IncludeDir)
+	includedirs(Dependencies.NanoGraphics.IncludeDir)
+
 	links(Dependencies.NanoNetworking.LibName)
+	links(Dependencies.NanoGraphics.LibName)
 
 	filter "system:windows"
 		defines "SL_PLATFORM_DESKTOP"
@@ -49,12 +53,12 @@ project "Slither"
             "NOMINMAX"
         }
 
-		local nnDeps = local_require("../vendor/NanoNetworking/NanoNetworking/Dependencies.lua")
+		local NanoNetworkingDependencies = local_require("../vendor/NanoNetworking/NanoNetworking/Dependencies.lua")
 
 		postbuildcommands
 		{
-			'{COPYFILE} "' .. nnDeps.OpenSSL.IncludeDir .. '/../bin/' .. nnDeps.OpenSSL.DllName .. '" "%{cfg.targetdir}"',
-			'{COPYFILE} "' .. nnDeps.OpenSSL.IncludeDir .. '/../bin/' .. nnDeps.OpenSSL.DllName .. '" "%{prj.location}"' -- Note: This is the debugdir
+			'{COPYFILE} "' .. NanoNetworkingDependencies.OpenSSL.IncludeDir .. '/../bin/' .. NanoNetworkingDependencies.OpenSSL.DllName .. '" "%{cfg.targetdir}"',
+			'{COPYFILE} "' .. NanoNetworkingDependencies.OpenSSL.IncludeDir .. '/../bin/' .. NanoNetworkingDependencies.OpenSSL.DllName .. '" "%{prj.location}"' -- Note: This is the debugdir
 		}
 
 	filter "system:linux"

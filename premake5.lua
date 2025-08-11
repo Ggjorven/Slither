@@ -1,4 +1,12 @@
 ------------------------------------------------------------------------------
+-- Utils
+------------------------------------------------------------------------------
+function local_require(path)
+	return dofile(path)
+end
+------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------
 -- Bug fixes
 ------------------------------------------------------------------------------
 -- Visual Studio: Bugfix for C++ Modules (same module file name per project)
@@ -23,7 +31,8 @@ end)
 ------------------------------------------------------------------------------
 -- Solution
 ------------------------------------------------------------------------------
-outputdir = "%{cfg.buildcfg}-%{cfg.system}"
+local MacOSVersion = "14.5"
+local OutputDir = "%{cfg.buildcfg}-%{cfg.system}"
 
 workspace "Slither"
 	architecture "x86_64"
@@ -43,6 +52,7 @@ workspace "Slither"
 
 group "Dependencies"
 	include "vendor/NanoNetworking/NanoNetworking/premake5-external"
+	include "vendor/NanoGraphics/NanoGraphics/premake5-external"
 group ""
 
 include "Slither"
