@@ -49,6 +49,14 @@ project "Slither"
             "NOMINMAX"
         }
 
+		local nnDeps = local_require("../vendor/NanoNetworking/NanoNetworking/Dependencies.lua")
+
+		postbuildcommands
+		{
+			'{COPYFILE} "' .. nnDeps.OpenSSL.IncludeDir .. '/../bin/' .. nnDeps.OpenSSL.DllName .. '" "%{cfg.targetdir}"',
+			'{COPYFILE} "' .. nnDeps.OpenSSL.IncludeDir .. '/../bin/' .. nnDeps.OpenSSL.DllName .. '" "%{prj.location}"' -- Note: This is the debugdir
+		}
+
 	filter "system:linux"
 		defines "SL_PLATFORM_DESKTOP"
 		defines "SL_PLATFORM_LINUX"

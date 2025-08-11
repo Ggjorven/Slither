@@ -29,6 +29,7 @@ local Dependencies =
 }
 
 Dependencies.NanoNetworking.IncludeDirs = local_require("vendor/NanoNetworking/NanoNetworking/Dependencies.lua").Combined.IncludeDirs
+table.insert(Dependencies.NanoNetworking.IncludeDirs, this_directory() .. "/vendor/NanoNetworking/NanoNetworking/NanoNetworking/src")
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------
