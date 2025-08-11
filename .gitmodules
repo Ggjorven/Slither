@@ -1,3 +1,6 @@
 [submodule "vendor/NanoNetworking/NanoNetworking"]
 	path = vendor/NanoNetworking/NanoNetworking
 	url = https://github.com/Ggjorven/NanoNetworking.git
+[submodule "vendor/NanoGraphics/NanoGraphics"]
+	path = vendor/NanoGraphics/NanoGraphics
+	url = https://github.com/Ggjorven/NanoGraphics.git
